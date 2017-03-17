@@ -1,0 +1,23 @@
+
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  padding: 1cm; 
+  width: 150% !important;
+  font-size: 9px !important;
+}
+
+body {
+  position: relative;
+  font-size: 9px !important;
+  line-height: 1.42857143;
+  color: #5e5e5e;
+  width: 150% !important;
+  background: white;
+}
+
+
+ .equis{
+    display: none;
+ }

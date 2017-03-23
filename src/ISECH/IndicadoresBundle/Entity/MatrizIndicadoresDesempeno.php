@@ -31,6 +31,12 @@ class MatrizIndicadoresDesempeno
     private $nombre;
 
     /**
+     * @ORM\ManyToOne(targetEntity="MatrizSeguimientoMatriz")
+     * @ORM\JoinColumn(name="id_matriz", referencedColumnName="id", onDelete="CASCADE")
+     * */
+    private $matriz;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="orden", type="string", length=4, nullable=true)
@@ -280,5 +286,28 @@ class MatrizIndicadoresDesempeno
     public function getOrden()
     {
         return $this->orden;
+    }
+
+    /**
+     * Set matriz
+     *
+     * @param  ISECH\IndicadoresBundle\Entity\MatrizSeguimientoMatriz $matriz
+     * @return MatrizSeguimientoMatriz
+     */
+    public function setMatriz(\ISECH\IndicadoresBundle\Entity\MatrizSeguimientoMatriz $matriz = null)
+    {
+        $this->matriz = $matriz;
+
+        return $this;
+    }
+
+    /**
+     * Get matriz
+     *
+     * @return ISECH\IndicadoresBundle\Entity\MatrizSeguimientoMatriz
+     */
+    public function getMatriz()
+    {
+        return $this->matriz;
     }
 }

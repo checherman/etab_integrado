@@ -28,6 +28,7 @@ class MatrizIndicadoresDesempenoAdmin extends Admin
     {
         $showMapper
             ->add('id')
+            ->add('matriz', null, array('label' => $this->getTranslator()->trans('_matriz_'), 'required' => true))
             ->add('nombre') 
             ->add('orden') 
             ->add('matrizIndicadoresEtab', null, array('label' => $this->getTranslator()->trans('_indicador_etab_'),                 
@@ -54,6 +55,7 @@ class MatrizIndicadoresDesempenoAdmin extends Admin
 	public function configureFormFields(FormMapper $formMapper) 
 	{
         $formMapper
+                ->add('matriz', null, array('label' => $this->getTranslator()->trans('_matriz_')))                                
                 ->add('nombre', null, array('label' => $this->getTranslator()->trans('nombre')))
                 ->add('orden', null, array('label' => $this->getTranslator()->trans('orden')))
 				->add('matrizIndicadoresEtab', null, array('label' => $this->getTranslator()->trans('_indicador_etab_'),                 
@@ -79,12 +81,14 @@ class MatrizIndicadoresDesempenoAdmin extends Admin
 	{
         $datagridMapper
                 ->add('nombre', null, array('label' => $this->getTranslator()->trans('nombre')))
+                ->add('matriz', null, array('label' => $this->getTranslator()->trans('_matriz_')))
         ;
     }
 
     public function configureListFields(ListMapper $listMapper) 
 	{
         $listMapper
+                ->addIdentifier('matriz', null, array('label' => $this->getTranslator()->trans('_matriz_')))  
                 ->addIdentifier('nombre', null, array('label' => $this->getTranslator()->trans('nombre')))				
                 ->add('creado', null, array('label' => $this->getTranslator()->trans('creado')))
 				->add('actualizado', null, array('label' => $this->getTranslator()->trans('actualizado')))

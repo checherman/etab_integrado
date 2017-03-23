@@ -235,6 +235,19 @@
             <tag name="sonata.admin.filter.type" alias="doctrine_orm_string" />
         </service>        
 
+        <service id="sonata.admin.matriz" class="ISECH\IndicadoresBundle\Admin\MatrizSeguimientoMatrizAdmin">
+            <tag name="sonata.admin" 
+                 manager_type="orm" 
+                 group="_matriz_seguimiento_" 
+                 label="_config_matriz_"
+            />
+            <argument />
+            <argument>ISECH\IndicadoresBundle\Entity\MatrizSeguimientoMatriz</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+            <call method="setMaxPerPage"><argument>%admin_max_per_page_number%</argument></call>
+        </service>
+
+
         <service id="sonata.admin.indicadores_desempeno" class="ISECH\IndicadoresBundle\Admin\MatrizIndicadoresDesempenoAdmin">
             <tag name="sonata.admin" 
                  manager_type="orm" 
@@ -247,6 +260,7 @@
             <call method="setMaxPerPage"><argument>%admin_max_per_page_number%</argument></call>
         </service>
 
+        
         <service id="sonata.admin.indicadores_rel" class="ISECH\IndicadoresBundle\Admin\MatrizIndicadoresRelAdmin">
             <tag name="sonata.admin" 
                  manager_type="orm" 

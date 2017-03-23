@@ -37,18 +37,40 @@ class MatrizSeguimientoRESTController extends Controller {
         return $this->render('IndicadoresBundle:Matriz:reporte.html.twig', array('admin_pool'    => $this->container->get('sonata.admin.pool')));
     }
     /**
+     * @Route("/matriz/matriz", name="matriz_matriz", options={"expose"=true})
+     */
+    public function matrices(){
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $connection = $em->getConnection();
+        $statement = $connection->prepare("SELECT * FROM matriz_seguimiento_matriz ORDER BY nombre ASC");
+        $statement->execute();
+        $matriz = $statement->fetchAll();
+
+        if($matriz){
+            $resp = ["data" => $matriz, "mensaje" => $this->get('translator')->trans('_cargado_correctamente'), "status" => 200];
+        }else{
+            $resp = ["data" => "false", "mensaje" => $this->get('translator')->trans('_ningun_dato_'), "status" => 404];
+        }  
+        $response = new Response();
+        $response->setContent(json_encode($resp));
+
+        return $response;
+    }
+    /**
      * @Route("/matriz/planeacion", name="matriz_planeacion", options={"expose"=true})
      */
     public function planeacion(Request $request){
         $response = new Response();
 
-        $anio = $request->query->get('anio');
+        $anio   = $request->query->get('anio');
+        $matrix = $request->query->get('matrix');
 
         $em = $this->getDoctrine()->getEntityManager();
 
         $connection = $em->getConnection();
         $statement = $connection->prepare("SELECT distinct(ms.id_desempeno), mid.orden FROM matriz_seguimiento ms 
-            LEFT JOIN matriz_indicadores_desempeno mid ON mid.id = ms.id_desempeno WHERE anio = '$anio'  ORDER BY mid.orden ASC");
+            LEFT JOIN matriz_indicadores_desempeno mid ON mid.id = ms.id_desempeno WHERE anio = '$anio' and id_matriz = '$matrix'  ORDER BY mid.orden ASC");
         $statement->execute();
         $matriz = $statement->fetchAll();
 
@@ -159,10 +181,11 @@ class MatrizSeguimientoRESTController extends Controller {
     public function planeacionCrear(Request $request){
         $response = new Response();
         $resp = array();
-        $anio = $request->query->get('anio');
+        $anio   = $request->query->get('anio');
+        $matrix = $request->query->get('matrix');
 
         $em = $this->getDoctrine()->getManager();        
-        $indicadores = $em->getRepository("IndicadoresBundle:MatrizIndicadoresDesempeno")->findBy(array(), array('id' => 'ASC'));
+        $indicadores = $em->getRepository("IndicadoresBundle:MatrizIndicadoresDesempeno")->findBy(array('matriz' => $matrix), array('id' => 'ASC'));
         if($indicadores){
             foreach($indicadores as $ind){
                 $indicador = array();
@@ -313,13 +336,14 @@ class MatrizSeguimientoRESTController extends Controller {
     public function real(Request $request){
         $response = new Response();
 
-        $anio = $request->query->get('anio');
+        $anio   = $request->query->get('anio');
+        $matrix = $request->query->get('matrix');
 
         $em = $this->getDoctrine()->getEntityManager();
 
         $connection = $em->getConnection();
         $statement = $connection->prepare("SELECT distinct(ms.id_desempeno), mid.orden FROM matriz_seguimiento ms 
-            LEFT JOIN matriz_indicadores_desempeno mid ON mid.id = ms.id_desempeno WHERE anio = '$anio'  ORDER BY mid.orden ASC");
+            LEFT JOIN matriz_indicadores_desempeno mid ON mid.id = ms.id_desempeno WHERE anio = '$anio'  and id_matriz = '$matrix' ORDER BY mid.orden ASC");
         $statement->execute();
         $matriz = $statement->fetchAll();
 
@@ -524,13 +548,14 @@ class MatrizSeguimientoRESTController extends Controller {
     public function reporte(Request $request){
         $response = new Response();
 
-        $anio = $request->query->get('anio');
+        $anio   = $request->query->get('anio');
+        $matrix = $request->query->get('matrix');
 
         $em = $this->getDoctrine()->getEntityManager();
 
         $connection = $em->getConnection();
         $statement = $connection->prepare("SELECT distinct(ms.id_desempeno), mid.orden FROM matriz_seguimiento ms 
-            LEFT JOIN matriz_indicadores_desempeno mid ON mid.id = ms.id_desempeno WHERE anio = '$anio'  ORDER BY mid.orden ASC");
+            LEFT JOIN matriz_indicadores_desempeno mid ON mid.id = ms.id_desempeno WHERE anio = '$anio'  and id_matriz = '$matrix' ORDER BY mid.orden ASC");
         $statement->execute();
         $matriz = $statement->fetchAll();
 

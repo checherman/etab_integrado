@@ -44,8 +44,12 @@
 
         <br>
         <div class="row">
+            <div class="col-sm-1" style="width:10% !important">{{ '_matriz_select_' | trans }}:</div>
+            <div class="col-md-4" ng-init="matrix = []; cargarSelect('{{ path('matriz_matriz') }}', matrix)">
+                <select class="form-control" ng-model="matriz" ng-options="val.id as val.nombre for val in matrix" ></select>
+            </div>
             <div class="col-sm-1">{{ '_anio_select_' | trans }}:</div>
-            <div class="col-md-5">
+            <div class="col-md-3">
                 <p class="input-group">
                     <label></label>
                   <input type="text" class="form-control" uib-datepicker-popup="<%format%>" 
@@ -59,7 +63,7 @@
             <div class="col-md-2">
                 <button type="button" class="btn btn-default" ng-click="crearPlaneacion(ruta ,anio)"><i class="glyphicon glyphicon-refresh"></i></button>
             </div>
-            <div class="col-md-4" ng-if="noPlaneacion">
+            <div class="col-md-6" ng-if="noPlaneacion">
                 <span>{{ '_no_existe_planeacion_' | trans }}</span>
                 <button type="button" class="btn btn-default" ng-click="crearPlaneacion('{{ path('matriz_planeacion_crear') }}', anio)"><i class="glyphicon glyphicon-check"></i> {{ '_crear_planeacion_' | trans }}</button>
             </div>

@@ -8,14 +8,14 @@ partir de la información administrativa producida por el sistema estatal y
 nacional de información de salud.
 
 
-# [Documentación](https://github.com/checherman/etab/app/Resources/doc)
+# [Documentación](app/Resources/doc)
 
-* [Manual de instalación](https://github.com/checherman/etab/blob/chiapas/app/Resources/doc/manual-tecnico/Contents/instalacion.md)
+* [Manual de instalación](app/Resources/doc/manual-tecnico/Contents/instalacion.md)
 
-* [Documento de análisis y requerimientos](https://github.com/checherman/etab/app/Resources/doc/analisis-y-requerimientos/Contents) [pdf](https://github.com/checherman/etab/app/Resources/doc/analisis-y-requerimientos/Output/print/book.pdf?raw=true)
+* [Manual técnico PDF](app/Resources/doc/Manual-Tecnico.pdf)
 
-* [Manual técnico](https://github.com/checherman/etab/app/Resources/doc/manual-tecnico/Contents) [pdf](https://github.com/checherman/etab/blob/chiapas/app/Resources/doc/manual-tecnico/Output/print/book.pdf?raw=true)
+* [Manual de usuario PDF](app/Resources/doc/Manual-Usuario.pdf)
 
-* [Manual de usuario](https://github.com/checherman/etab/app/Resources/doc/manual-de-usuario/Contents) [pdf](https://github.com/checherman/etab/app/Resources/doc/manual-de-usuario/Output/print/book.pdf?raw=true)
+* [Manual operativo PDF](app/Resources/doc/Manual-Operativo.pdf)
 
-* [Manual operativo para el registro de Orígenes de Datos](https://github.com/checherman/etab/chiapas/app/Resources/doc/manual-de-usuario/Output/print/Manual-Operativo-Registro-Origenes-Datos.pdf)
+* [Manual tablero PDF](app/Resources/doc/Manual-Tablero.pdf)

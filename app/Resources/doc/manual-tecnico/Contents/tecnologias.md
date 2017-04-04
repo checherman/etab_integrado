@@ -1,5 +1,6 @@
 #  Tecnologías utilizadas
 
+<p style="text-align: justify;">
 El Tablero eTAB es un servicio Web disponible para que dependencias del sistema de salud suban sus datos para poder analizarlos, generar gráficas y reportes. 
 
 La aplicación cuenta con un módulo para efectuar la extracción,transformación y carga de datos (ETL) desde diferentes fuentes. Estos datos son agregados y almacenados en una base de datos relacional (OLTP). Los datos están organizados por catálogos de referencia e Indicadores medibles. Los usuarios del sistema pueden administrar estos indicadores y catálogos y todos sus tributos usando el las herramientas que brinda el sistema.
@@ -11,6 +12,7 @@ El resultado de las consultas al servidor OLAP, es porcesado usando JQuery y gra
 
 Todo el software utilizado para creación del SIIG/eTAB son paquetes de software libre.
 Estos incluyen:
+</p>
 
 * GitHub: Gestor de control de versiones de código fuente
 * Apache: Servidor de paginas web
@@ -29,6 +31,7 @@ Estos incluyen:
 ### Gestor de base de datos
 [PostgreSQL] (http://www.postgresql.org/)
 
+<p style="text-align: justify;">
 Versión 9.1
 Actualmente el sistema únicamente puede utilizar PostgreSQL por la siguiente razón: 
 La aplicación debe proveer la capacidad de analizar datos para cualquier indicador. 
@@ -38,6 +41,7 @@ Es posible crear una tabla por cada grupo de datos, con la limitante de que es n
 La base de datos necesita guardar datos sin conocer de antemano sus características.  
 Esto se logra usando un esquema de datos generico EAV (entidad-atributo-valor). 
 El manejo de esquemas EAV es implementado de diferentes formas para diferentes gestores de bases de datos,el Tablero eTAB usa la implementación de Postgres la cual crea un tipo especial de dato llamado HSTORE.
+</p>
 
 ### Servidor Web
 [Apache2](http://www.apache.org)
@@ -51,7 +55,7 @@ Apache es un servidor Web de código abierto, se ha realizado sobre Apache versi
 
 [GitHub](https://github.com/)
 
-El lenguaje que se ha utilizado es PHP 5.3.18 dentro de una estructura de desarrollo MVC manejada  Symfony versión 2.4
+El lenguaje que se ha utilizado es PHP 5.5.3 dentro de una estructura de desarrollo MVC manejada  Symfony versión 2.4
 Cada mimbro del equipo de desarrollo usa un aplicativo diferente para escribir/modificar el código fuente. Los mas populares popular es Netbeans(version libre para PHP) y Nano. 
 Para manejar cambios y mejoras al código fuente se uso Github. La totalidad  del código fuente esta disponible en https://github.com/checherman/etab
 ### Framework JavaScript

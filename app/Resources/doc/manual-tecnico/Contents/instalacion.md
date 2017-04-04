@@ -3,12 +3,13 @@
 ## Requerimientos
 * Servidor Web
 * Gestor de base de datos
-* PHP 5.3.8+
+* PHP 5.5.3+
 * Java 6
 
 
 ## Instalación de Symfony2
 ### Instalación de los requerimientos desde un servidor Debian 
+
 Es muy importante poner atención al indicador "**#**" significa que el comando debe ser ejecutado como usuario **root** y "**$**" que debe ser ejecutado como un **usuario normal**, en ambos casos desde una **consola de comandos**.
 
 <blockquote>
@@ -21,17 +22,17 @@ Instalamos todas las librerías y aplicaciones que se utilizan en el sistema (PH
 </blockquote>
 
 ### Crear usuario y directorio de trabajo
-El directorio y usuario a utilizar pueden variar de acuerdo a los que se deseen elegir en cada instalación. Como ejemplo se usará un usuario llamado **siig** y el directorio de instalación **/var/www/siig**
+El directorio y usuario a utilizar pueden variar de acuerdo a los que se deseen elegir en cada instalación. Como ejemplo se usará un usuario llamado **etab** y el directorio de instalación **/var/www/etab**
 
 <blockquote>
 Creamos el usuario
-<p># adduser siig</p>
+<p># adduser etab</p>
 Creamos el directorio
-<p># mkdir /var/www/siig</p>
-Asignamos como dueño del directorio al usuario que acabamos de crear, en nuestro caso es siig
-<p># chown siig:siig /var/www/siig</p>
-Nos cambiamos al usuario que es dueño de la directorio siig
-<p># su siig</p>
+<p># mkdir /var/www/etab</p>
+Asignamos como dueño del directorio al usuario que acabamos de crear, en nuestro caso es etab
+<p># chown etab:etab /var/www/etab</p>
+Nos cambiamos al usuario que es dueño de la directorio etab
+<p># su etab</p>
 Accedemos a la carpeta web del Apache
 <p>$ cd /var/www</p>
 </blockquote>
@@ -39,13 +40,13 @@ Accedemos a la carpeta web del Apache
 
 
 ### Obtener el código fuente
-Puedes descargarlo desde: [https://github.com/checherman/etab](https://github.com/checherman/etab) o clonar el repositorio
+Puedes descargarlo desde: [https://github.com/checherman/eTAB3](https://github.com/checherman/eTAB3) o clonar el repositorio
 
 <blockquote>
-$ https://github.com/checherman/etab.git etab
+$ https://github.com/checherman/eTAB3.git etab
 </blockquote>
 
-Recuerda que actualmente estamos en el directorio */var/www* y el último parámetro del git clone es la carpeta en donde se descargará el código fuente del repositorio, en este nuestro caso es *siig*.
+Recuerda que actualmente estamos en el directorio */var/www* y el último parámetro del git clone es la carpeta en donde se descargará el código fuente del repositorio, en este nuestro caso es *etab*.
 
 ```
 NOTA: A partir de este punto todos los comandos se deben ejecutar dentro de la carpeta en que se ha descargado el código fuente.
@@ -69,7 +70,7 @@ $ curl -s https://getcomposer.org/installer | php
 $ php composer.phar install
 </blockquote>
 
-Dado que Symfony2 es un proyecto Open Source, depende de librerías y paquetes de terceros, por lo que puede presentarse el caso que al ejecutar composer install se produzca un error de dependencias. Al ejecutar el composer install este lee el archivo composer.json donde se encuentran las dependencias del proyecto. Al terminar la instalación este crea el archivo composer.lock el cual contiene las especificación exacta de las versiones de los paquetes instalados, por lo que puede utilizar como alternativa el siguiente archivo [composer.lock](https://github.com/checherman/etab/composer.lock) e intentar nuevamente la instalación, este solo en caso de presentarse el problema de dependencias.
+Dado que Symfony2 es un proyecto Open Source, depende de librerías y paquetes de terceros, por lo que puede presentarse el caso que al ejecutar composer install se produzca un error de dependencias. Al ejecutar el composer install este lee el archivo composer.json donde se encuentran las dependencias del proyecto. Al terminar la instalación este crea el archivo composer.lock el cual contiene las especificación exacta de las versiones de los paquetes instalados, por lo que puede utilizar como alternativa el siguiente archivo [composer.lock](https://github.com/checherman/eTAB3/composer.lock) e intentar nuevamente la instalación, este solo en caso de presentarse el problema de dependencias.
 
 Durante la instalación se solicitarán los siguientes parámetros (Si desea conservar el valor por defecto para cada entrada es suficiente con presionar Enter para confirmar el valor):
 
@@ -94,17 +95,17 @@ Servidor de correo electrónico.
 Usuario para el servidor de correo electrónico.
 <p>mailer_password: null</p>
 Contraseña del usuario para el servidor de correo electrónico.
-<p>locale: es_SV</p>
+<p>locale: es_MX</p>
 Lenguaje por defecto para la aplicación.
 <p>secret: 295125e6c66ab2a1038b62ad3c910733510</p>
 Esta es una cadena que debe ser única, se utiliza para la generación de las tokens CSRF, pero que podría ser utilizado en cualquier otro contexto en donde una cadena única es útil, como por ejemplo, la encriptación de las contraseñas de usuario.
 <p>archivo_vitacora: %kernel.logs_dir%/isech.log</p>
 Archivo donde se guardará el registro de eventos de la aplicación. %kernel.logs_dir% es una variable de Symfony2 que hace referencia a la ruta relativa app/logs/ (con respecto a directorio de instalación).
-<p>carpeta_siig_mondrian: %kernel.root_dir%/mondrian/</p>
+<p>carpeta_etab_mondrian: %kernel.root_dir%/mondrian/</p>
 Carpeta de esquemas generados por la aplicación para Pentaho, esta variable es utilizada por Saiku. %kernel.root_dir% es una variable de Symfony2 que hace referencia a la ruta relativa app/ (con respecto a directorio de instalación).
-<p>conexion_bd_pentaho: Minsal</p>
+<p>conexion_bd_pentaho: isech</p>
 Nombre de conexión a base de datos dentro de Pentaho.
-<p>listado_metadata: datasources.siig</p>
+<p>listado_metadata: datasources.etab</p>
 Archivo que lista esquemas existentes y su conexión. Este archivo debe estar ligado al fichero ../pentaho-solutions/system/olap/datasources.xml
 <p></p>
 </blockquote>
@@ -119,28 +120,28 @@ con los parámetros más adecuados: ip, dominio, configuración en el DNS, etc.
 Creamos el archivo para la definición del VirtualHost
 
 <blockquote>
-# nano /etc/apache2/sites-available/siig.localhost
+# nano /etc/apache2/sites-available/etab.localhost
 </blockquote>
 
 El contenido será similar a esto:
 
     <VirtualHost 127.0.0.7>
      
-        ServerName siig.localhost
-        DocumentRoot /var/www/siig/web
+        ServerName etab.localhost
+        DocumentRoot /var/www/etab/web
      
-        <Directory /var/www/siig/web >
+        <Directory /var/www/etab/web >
              Options Indexes FollowSymLinks MultiViews
              AllowOverride All
              Order allow,deny
              allow from all
         </Directory>
      
-        ErrorLog ${APACHE_LOG_DIR}/siig-error.localhost.log
+        ErrorLog ${APACHE_LOG_DIR}/etab-error.localhost.log
         # Possible values include: debug, info, notice, warn, error, crit,
         # alert, emerg.
         LogLevel warn
-        CustomLog ${APACHE_LOG_DIR}/siig-access.localhost.log combined
+        CustomLog ${APACHE_LOG_DIR}/etab-access.localhost.log combined
     
     </VirtualHost>
 
@@ -148,12 +149,12 @@ El contenido será similar a esto:
 En el archivo /etc/hosts agregamos la línea 
 
 <blockquote>
-127.0.0.7               siig.localhost
+127.0.0.7               etab.localhost
 </blockquote>
 
 Habilitamos el VirtualHost
 <blockquote>
-# a2ensite siig.localhost
+# a2ensite etab.localhost
 </blockquote>
 
 También es recomendable activar el módulo mod_rewrite
@@ -177,7 +178,7 @@ está el proyecto y luego ejecutar
 
 
 ### Verificar la configuración
-Entra a la siguiente dirección desde el navegador [*http://siig.localhost/config.php*](http://siig.localhost/config.php). Si aparece algún error debe ser corregido antes de continuar.
+Entra a la siguiente dirección desde el navegador [*http://etab.localhost/config.php*](http://etab.localhost/config.php). Si aparece algún error debe ser corregido antes de continuar.
 
 
 ## Configuración de PostgreSQL
@@ -208,7 +209,7 @@ Se creará el usuario dueño de la base de datos, las opciones utilizadas depend
 <p>$ createuser -d -s -R -P admin;</p>
 </blockquote>
 
-Al finalizar presionar la combinación Ctrl+D 2 veces para regresar al usuario siig y continuar con la instalación.
+Al finalizar presionar la combinación Ctrl+D 2 veces para regresar al usuario etab y continuar con la instalación.
 
 ### Crear la base de datos
 Symfony hace uso del bundle [Doctrine](http://gitnacho.github.io/symfony-docs-es/book/doctrine.html) para el manejo de la capa de datos.
@@ -231,7 +232,7 @@ $ app/console doctrine:fixtures:load
 
 Con este comando se insertan los datos iniciales del sistema.
 
-### Crear un usuario administrador del SIIG
+### Crear un usuario administrador del etab
 Symfony hace uso del bundle [FOSUser](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md) para la administración de usuarios.
 
 <blockquote>
@@ -326,11 +327,11 @@ $ src/ISECH/IndicadoresBundle/Util/iniciar_colas.sh
 </blockquote>
 Pueden aparecer mensajes de aviso como "/usr/bin/nohup: redirecting stderr to stdout" solo debemos presionar ENTER
 
-- Además es necesario configurar el **CRON** para que ejecute periódicamente la carga de datos, con esto se llamará al proceso origen-dato:cargar que verificará para cada indicador si le corresponde realizar la carga de datos según se haya configurado: diario, mensual, bimensual, trimestral, cuatrimestral, semestral o anual. Un ejemplo podría ser crear el archivo: /etc/cron.d/carga-php-siig con el siguiente contenido:
+- Además es necesario configurar el **CRON** para que ejecute periódicamente la carga de datos, con esto se llamará al proceso origen-dato:cargar que verificará para cada indicador si le corresponde realizar la carga de datos según se haya configurado: diario, mensual, bimensual, trimestral, cuatrimestral, semestral o anual. Un ejemplo podría ser crear el archivo: /etc/cron.d/carga-php-etab con el siguiente contenido:
 
 <blockquote>
 <p>#Ejecutar cada dia a las 00:00</p>
-<p>0 0     * * *   www-data        test -x /usr/bin/php && /usr/bin/php /var/www/siig/app/console origen-dato:cargar</p>
+<p>0 0     * * *   www-data        test -x /usr/bin/php && /usr/bin/php /var/www/etab/app/console origen-dato:cargar</p>
 </blockquote>
 
 
@@ -344,11 +345,11 @@ Pentaho es un servidor de  análisis (Business Inteligence) modular que ofrece h
 
 3- Instalaremos la aplicación de visualización de cubos OLAP llamada SAIKU.
 
-4- Modificaremos Apache: URL del SIIG apuntando a Pentaho.
+4- Modificaremos Apache: URL del etab apuntando a Pentaho.
 
 5- Crear y Publicar Reportes por Indicador.
 
-El objetivo es usar el servidor Pentaho+Saiku para analizar los datos del SIIG y a la vez integrar esta aplicación dentro de la plataforma del SIIG de forma que el usuario no se percate de que esta usando una aplicación externa. 
+El objetivo es usar el servidor Pentaho+Saiku para analizar los datos del etab y a la vez integrar esta aplicación dentro de la plataforma del etab de forma que el usuario no se percate de que esta usando una aplicación externa. 
 
 ### Instalación de Pentaho
 
@@ -372,7 +373,7 @@ El archivo comprimido del servidor de Pentaho (biserver-ce-X.X-estable.tar) cont
 
 - aministration-console, la interfaz de administración del servidor que permite manejar cuentas de usuario, roles y conexiones a bases de datos, accesible desde el puerto 8099.   
 
-Cada uno de estos dos servicios tiene su script de inicio correspondiente y credenciales por defecto. A continuación eliminaremos el sistema de seguridad interno de Pentaho, para que no pida credenciales y así  facilitar la integración con el resto del sistema SIIG. Estos cambios afectan ambos servicios: la plataforma de Pentaho y la consola de administración. Para eliminar el uso de credenciales basta seguir las instrucciones del manual oficial de Pentaho:
+Cada uno de estos dos servicios tiene su script de inicio correspondiente y credenciales por defecto. A continuación eliminaremos el sistema de seguridad interno de Pentaho, para que no pida credenciales y así  facilitar la integración con el resto del sistema etab. Estos cambios afectan ambos servicios: la plataforma de Pentaho y la consola de administración. Para eliminar el uso de credenciales basta seguir las instrucciones del manual oficial de Pentaho:
 
 [http://wiki.pentaho.com/display/ServerDoc2x/Removing+Security](http://wiki.pentaho.com/display/ServerDoc2x/Removing+Security)
 
@@ -396,7 +397,7 @@ En este punto deberíamos poder abrir la aplicación sin usar credenciales usand
     Log de Servidor Tomcat: biserver-ce/tomcat/logs/catalina.out 
 
 
-A continuación, conectaremos Pentaho a la base de datos del SIIG usando la consola de administración. La consola de administración no incluye soporte para Postgres. El primer paso es copiar el manejador de Postgres:
+A continuación, conectaremos Pentaho a la base de datos del etab usando la consola de administración. La consola de administración no incluye soporte para Postgres. El primer paso es copiar el manejador de Postgres:
 
 <blockquote>
 # cp biserver-ce/tomcat/lib/postgresql-9.1-902.jdbc4.jar administration-console/jdbc/
@@ -489,7 +490,7 @@ Reiniciar Pentaho:
 <p># ./start-pentaho.sh</p>
 </blockquote>
 
-### Modificar Apache: URL del SIIG apuntando a SAIKU 
+### Modificar Apache: URL del etab apuntando a SAIKU 
 Para enmascarar la URL de Pentaho debemos activar el proxy de Apache para esto debemos activar un par de módulos de Apache:  
 
 <blockquote>
@@ -504,7 +505,7 @@ Luego editamos la sección VirtualHost dentro de /etc/apache2/sites-enabled/000-
         SetEnv proxy-chain-auth
     </Location>
 
-En este punto ya tenemos SAIKU disponible como una URL del SIIG en: 
+En este punto ya tenemos SAIKU disponible como una URL del etab en: 
 
 [http://localhost/admin/isech/indicadores/saiku/](http://localhost/admin/isech/indicadores/saiku/)
 
@@ -543,15 +544,15 @@ Una guía completa sobre el diseño de reportes usando esta aplicación esta dis
 
 [http://wiki.pentaho.com/display/Reporting/01.+Creating+Your+First+Report](http://wiki.pentaho.com/display/Reporting/01.+Creating+Your+First+Report)
 
-Los reportes pueden ser creados y editados de forma local, y una vez terminados pueden ser publicados en el servidor de Pentaho. Al publicar un reporte, este inmediatamente esta disponible para el sistema SIIG. Si es necesario modificar un reporte existente, la modificación debe hacerse en forma local y luego publicar la nueva versión del reporte. 
+Los reportes pueden ser creados y editados de forma local, y una vez terminados pueden ser publicados en el servidor de Pentaho. Al publicar un reporte, este inmediatamente esta disponible para el sistema etab. Si es necesario modificar un reporte existente, la modificación debe hacerse en forma local y luego publicar la nueva versión del reporte. 
 
-3. **Publicar reporte**. Al seleccionar la opción publicar, aparece un ventana que nos pide elegir una carpeta en la cual se publicará el reporte. Para que pueda ser encontrada por el SIIG, asegúrese de guardar todos sus reportes en una carpeta llamada 'reportes'.  Si esta carpeta no existe puede crearla al momento de guardar su primer reporte usando el botón 'Nueva Carpeta'.
+3. **Publicar reporte**. Al seleccionar la opción publicar, aparece un ventana que nos pide elegir una carpeta en la cual se publicará el reporte. Para que pueda ser encontrada por el etab, asegúrese de guardar todos sus reportes en una carpeta llamada 'reportes'.  Si esta carpeta no existe puede crearla al momento de guardar su primer reporte usando el botón 'Nueva Carpeta'.
 
 Una vez dentro de la carpeta 'reportes' deberá asignar un nombre de archivo (Ejem: indicador15.prpt), un titulo e ingresar la clave de publicación que se fijo en el primer paso. 
 
-    NOTA: El SIIG  esta configurado para leer reportes tales como: reportes/indicadorX.prpt 
+    NOTA: El etab  esta configurado para leer reportes tales como: reportes/indicadorX.prpt 
     Por esto, si el reporte es publicado en una carpeta diferente o si el nombre 
-    asignado al archivo es diferente, no podrá ser leído por el SIIG.
+    asignado al archivo es diferente, no podrá ser leído por el etab.
 
 ## Instalación de librería wkhtmltopdf
 [wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/) Es una utilidad de línea de comando para convertir html a pdf
@@ -580,4 +581,4 @@ A continuación se muestran las lineas relevantes para especificar que directori
 En este punto estamos listos para cargar la aplicación desde:
 
 
-[**http://siig.localhost**](http://siig.localhost)
+[**http://etab.localhost**](http://etab.localhost)

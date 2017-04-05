@@ -37,7 +37,7 @@ class MatrizSeguimientoMatrizAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-                ->add('nombre', null, array('label' => $this->getTranslator()->trans('nombre')))
+                ->addIdentifier('nombre', null, array('label' => $this->getTranslator()->trans('nombre')))
                 ->add('descripcion', null, array('label' => $this->getTranslator()->trans('descripcion')))
             
         ;

@@ -372,8 +372,10 @@ class MatrizSeguimientoRESTController extends Controller {
 
                         foreach ($meses as $km => $vm) {
                             $vm = (object) $vm;
-                            $indicators[$i][$vm->mes]["planificado"] = $vm->planificado;
-                            $indicators[$i][$vm->mes]["real"] = $vm->real;
+                            if($vm->mes != 'fuente'){
+                                $indicators[$i][$vm->mes]["planificado"] = $vm->planificado;
+                                $indicators[$i][$vm->mes]["real"] = $vm->real;
+                            }
                         }
                         $i++;
                     }
@@ -398,30 +400,32 @@ class MatrizSeguimientoRESTController extends Controller {
                         
                         foreach ($meses as $km => $vm) {
                             $vm = (object) $vm;
-                            $etab[$i][$vm->mes]["planificado"] = $vm->planificado;
+                            if($vm->mes != 'fuente'){
+                                $etab[$i][$vm->mes]["planificado"] = $vm->planificado;
 
-                            if($vm->real == '' || $vm->real == null){
-                                try{
+                                if($vm->real == '' || $vm->real == null){
+                                    try{
 
-                                    $filtros = ["mes" => strtoupper($vm->mes), "anio" => $anio];
-                                    $fichaTec = $fichaRepository->find($indrs->getId());                                    
-                                    $repFicha = $fichaRepository->calcularIndicador($fichaTec, "mes", $filtros, false, null, 1, false);
-                                    
-                                    if(!$repFicha){
-                                        $errores.= "<br>No se cargo linea: $ci mes: ".$vm->mes;
+                                        $filtros = ["mes" => strtoupper($vm->mes), "anio" => $anio];
+                                        $fichaTec = $fichaRepository->find($indrs->getId());                                    
+                                        $repFicha = $fichaRepository->calcularIndicador($fichaTec, "mes", $filtros, false, null, 1, false);
+                                        
+                                        if(!$repFicha){
+                                            $errores.= "<br>No se cargo linea: $ci mes: ".$vm->mes;
+                                        }
+                                        else{
+                                            $measure = '';
+                                            if(isset($repFicha[0]))
+                                                $measure = $repFicha[0]["measure"];
+                                            $etab[$i][$vm->mes]["real"] = $measure;
+                                        }
                                     }
-                                    else{
-                                        $measure = '';
-                                        if(isset($repFicha[0]))
-                                            $measure = $repFicha[0]["measure"];
-                                        $etab[$i][$vm->mes]["real"] = $measure;
+                                    catch(\Exception $e){
+                                        
                                     }
+                                }else{
+                                    $etab[$i][$vm->mes]["real"] = $vm->real;
                                 }
-                                catch(\Exception $e){
-                                    
-                                }
-                            }else{
-                                $etab[$i][$vm->mes]["real"] = $vm->real;
                             }
                         }
                         $i++;
@@ -586,9 +590,12 @@ class MatrizSeguimientoRESTController extends Controller {
                         $indicators[$i] = array('id'=>$indrs->getId(), 'nombre'=>$indrs->getNombre(), 'fuente' => ' '.$indrs->getFuente(), 'meta' => $meta);
 
                         foreach ($meses as $km => $vm) {
-                            $vm = (object) $vm;                            
-                            $indicators[$i][$vm->mes]["planificado"] = $vm->planificado;
-                            $indicators[$i][$vm->mes]["real"] = $vm->real;
+                            $vm = (object) $vm; 
+                            
+                            if($vm->mes != 'fuente'){    
+                                $indicators[$i][$vm->mes]["planificado"] = $vm->planificado;                            
+                                $indicators[$i][$vm->mes]["real"] = $vm->real;                            
+                            }
                         }
                         $i++;
                     }
@@ -611,8 +618,10 @@ class MatrizSeguimientoRESTController extends Controller {
                         $etab[$i] = array('id'=>$indrs->getId(), 'nombre'=>$indrs->getNombre(),  'fuente' => ' eTAB', 'meta' => $meta);
                         foreach ($meses as $km => $vm) {
                             $vm = (object) $vm;
-                            $etab[$i][$vm->mes]["planificado"] = $vm->planificado;
-                            $etab[$i][$vm->mes]["real"] = $vm->real;
+                            if($vm->mes != 'fuente'){
+                                $etab[$i][$vm->mes]["planificado"] = $vm->planificado;
+                                $etab[$i][$vm->mes]["real"] = $vm->real;
+                            }
                            
                             try{
 

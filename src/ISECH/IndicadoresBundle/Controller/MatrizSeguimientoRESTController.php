@@ -663,4 +663,3 @@ class MatrizSeguimientoRESTController extends Controller {
         return $response;
     }
 }
-

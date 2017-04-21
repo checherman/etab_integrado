@@ -621,28 +621,28 @@ class MatrizSeguimientoRESTController extends Controller {
                             if($vm->mes != 'fuente'){
                                 $etab[$i][$vm->mes]["planificado"] = $vm->planificado;
                                 $etab[$i][$vm->mes]["real"] = $vm->real;
-                            }
-                           
-                            try{
+                                                       
+                                try{
 
-                                $filtros = ["mes" => strtoupper($vm->mes), "anio" => $anio];
-                                $fichaTec = $fichaRepository->find($indrs->getId());                                    
-                                $repFicha = $fichaRepository->calcularIndicador($fichaTec, "mes", $filtros, false, null, 1, false);
-                                
-                                if($repFicha){
-                                    $measure = '';
-                                    if(isset($repFicha[0]))
-                                        $measure = $repFicha[0]["measure"];
-                                    $etab[$i][$vm->mes]["real"] = $measure;
-                                }
-                                else{
-                                    $etab[$i][$vm->mes]["real"] = $vm->real;
-                                }
+                                    $filtros = ["mes" => strtoupper($vm->mes), "anio" => $anio];
+                                    $fichaTec = $fichaRepository->find($indrs->getId());                                    
+                                    $repFicha = $fichaRepository->calcularIndicador($fichaTec, "mes", $filtros, false, null, 1, false);
+                                    
+                                    if($repFicha){
+                                        $measure = '';
+                                        if(isset($repFicha[0]))
+                                            $measure = $repFicha[0]["measure"];
+                                        $etab[$i][$vm->mes]["real"] = $measure;
+                                    }
+                                    else{
+                                        $etab[$i][$vm->mes]["real"] = $vm->real;
+                                    }
 
-                            }
-                            catch(\Exception $e){
-                                
-                            }                          
+                                }
+                                catch(\Exception $e){
+                                    
+                                } 
+                            }                         
                         }
                         $i++;
                     }

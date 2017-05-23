@@ -2,17 +2,21 @@ parameters:
     database_driver: pdo_pgsql
     database_host: localhost
     database_port: null
-    database_name: indicadores2
+    database_name: indicadores
     database_user: admin
-    database_password: rodriguez
-    mailer_transport: smtp
-    mailer_host: localhost
-    mailer_user: null
-    mailer_password: null
+    database_password: ramirez
+    mailer_transport: gmail
+    mailer_host: smtp.gmail.com
+    mailer_username: cuenta@gmail.com
+    mailer_password: password
+    mailer_port: 465
     locale: es_SV
-    secret: 295125e6c66ab2a1038b62ad3c910733510
+    secret: 295125e6c66ab2a103checherman0733510
     database_path: null
-    archivo_vitacora: %kernel.logs_dir%/isech.log
+    archivo_vitacora: '%kernel.logs_dir%/isech.log'
+    carpeta_siig_mondrian: '%kernel.root_dir%/mondrian/'
+    conexion_bd_pentaho: Isech
+    listado_metadata: datasources.siig
     
     ##Variables de Saiku  
 # Carpeta de Esquemas generados por el Siig para Pentaho  
